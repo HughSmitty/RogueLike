@@ -1,8 +1,19 @@
 #include "Engine.h"
 #include "SDL3/SDL.h"
+#include "Colours.h"
+#include "TcodColour.h"
 
 constexpr int WINDOW_WIDTH{ 80 };
 constexpr int WINDOW_HEIGHT{ 50 };
+
+void Engine::Render()
+{
+    console.clear();
+    console.at(playerLocation.x, playerLocation.y).ch = '@';
+    console.at(playerLocation.x, playerLocation.y).fg = ToTcodA(White);
+}
+
+
 
 Engine::Engine() : screenWidth(WINDOW_WIDTH), screenHeight(WINDOW_HEIGHT)
 {

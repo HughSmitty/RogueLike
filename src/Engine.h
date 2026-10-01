@@ -2,9 +2,14 @@
 #define ENGINE_H
 
 #include "libtcod.h"
+#include "Point.h"
 
 class Engine
 {
+
+private:
+    Point playerLocation{ 40, 25 };
+
 public:
     Engine();
     ~Engine() = default;

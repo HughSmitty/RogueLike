@@ -33,7 +33,7 @@ void Engine::InitTcod()
     params.columns = screenWidth;
     params.rows = screenHeight;
     params.tileset = tileset.get();
-    params.window_title = "Roguelike";
+    params.window_title = "Children Of The Sun";
     params.vsync = 1;
     params.sdl_window_flags = SDL_WINDOW_RESIZABLE;
     context = tcod::Context(params);

@@ -3,6 +3,8 @@
 
 #include "libtcod.h"
 #include "Point.h"
+#include "Input.h"
+
 
 class Engine
 {
@@ -27,6 +29,7 @@ private:
     int screenWidth;
     int screenHeight;
     bool running{ true };   // cleared to end the game loop cleanly (Lab 4)
+    Input inputHandler;
 };
 
 #endif // ENGINE_H

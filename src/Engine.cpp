@@ -11,7 +11,11 @@ void Engine::Render()
     console.clear();
     console.at(playerLocation.x, playerLocation.y).ch = '@';
     console.at(playerLocation.x, playerLocation.y).fg = ToTcodA(White);
+    console.at(40, 25).ch = '@';
+    console.at(40, 25).fg = tcod::ColorRGB{ 255, 255, 255 };
 }
+
+
 
 
 
@@ -22,16 +26,22 @@ Engine::Engine() : screenWidth(WINDOW_WIDTH), screenHeight(WINDOW_HEIGHT)
 
 void Engine::Run()
 {
-    // Our traditional game loop. `while (running)` - not `while (true)` - so the
-    // game can be asked to stop and shut down cleanly (see Lab 4).
     while (running)
     {
         HandleInput();
+        if (inputHandler.IsQuitRequested()) // player closed the window
+        {
+            running = false;
+        }
         Update();
         Render();
         context.present(console);
     }
 }
+
+
+
+
 
 void Engine::InitTcod()
 {
@@ -52,20 +62,38 @@ void Engine::InitTcod()
 
 void Engine::HandleInput()
 {
-    // Nothing yet - fleshed out in Lab 4, when we add the Input class.
-    // (For now the game responds only to Visual Studio's Stop button; Lab 4
-    //  makes the window's close button work.)
+    inputHandler.CheckForEvent();
 }
 
-void Engine::Render()
-{
-    console.clear();
-
-    console.at(40, 25).ch = '@';
-    console.at(40, 25).fg = tcod::ColorRGB{ 255, 255, 255 };
-}
 
 void Engine::Update()
 {
-    // Nothing here yet. This method runs every turn.
+    // Turn the arrow key into a direction to step in.
+    Point delta{ Point::Zero };
+    switch (inputHandler.GetKeyCode())
+    {
+    case SDLK_UP:
+        delta = { 0, -1 }; // up is one row less
+        break;
+    case SDLK_DOWN:
+        delta = { 0, 1 };
+        break;
+    case SDLK_LEFT:
+        delta = { -1, 0 };
+        break;
+    case SDLK_RIGHT:
+        delta = { 1, 0 };
+        break;
+    default:
+        break; // any other key: no movement
+    }
+    Point newLocation{ playerLocation + delta }; // <-- Point's operator+, from
+
+    bool inBounds{ newLocation.x >= 0 && newLocation.x < screenWidth &&
+    newLocation.y >= 0 && newLocation.y < screenHeight };
+
+    if (inBounds)
+    {
+        playerLocation = newLocation;
+    }
 }

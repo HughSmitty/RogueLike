@@ -11,8 +11,6 @@ void Engine::Render()
     console.clear();
     console.at(playerLocation.x, playerLocation.y).ch = '@';
     console.at(playerLocation.x, playerLocation.y).fg = ToTcodA(White);
-    console.at(40, 25).ch = '@';
-    console.at(40, 25).fg = tcod::ColorRGB{ 255, 255, 255 };
 }
 
 
@@ -89,11 +87,11 @@ void Engine::Update()
     }
     Point newLocation{ playerLocation + delta }; // <-- Point's operator+, from
 
-    bool inBounds{ newLocation.x >= 0 && newLocation.x < screenWidth &&
-    newLocation.y >= 0 && newLocation.y < screenHeight };
+    bool inBounds{ newLocation.x >= 0 && newLocation.x < screenWidth && newLocation.y >= 0 && newLocation.y < screenHeight };
 
-    if (inBounds)
-    {
-        playerLocation = newLocation;
-    }
+        if (inBounds)
+        {
+            playerLocation = newLocation;
+        }
 }
+

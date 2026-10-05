@@ -9,8 +9,6 @@
 class Engine
 {
 
-private:
-    Point playerLocation{ 40, 25 };
 
 public:
     Engine();
@@ -30,6 +28,7 @@ private:
     int screenHeight;
     bool running{ true };   // cleared to end the game loop cleanly (Lab 4)
     Input inputHandler;
+    Point playerLocation{ 40, 25 };
 };
 
 #endif // ENGINE_H
